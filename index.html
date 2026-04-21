@@ -780,4 +780,859 @@
     <div class="logo-sub">Matematika — Qiziqarli va Oson!</div>
   </div>
 
-  <div class
+  <div class="stats-bar">
+    <div class="stat-chip">
+      <div class="val" id="home-total-steps">0</div>
+      <div class="lbl">Bosqich</div>
+    </div>
+    <div class="stat-chip">
+      <div class="val" id="home-streak">0🔥</div>
+      <div class="lbl">Streak</div>
+    </div>
+    <div class="stat-chip">
+      <div class="val" id="home-stars">0⭐</div>
+      <div class="lbl">Yulduz</div>
+    </div>
+  </div>
+
+  <div class="levels-title">📚 Darajalar</div>
+
+  <div class="levels-grid" id="levels-grid"></div>
+</div>
+
+<!-- ===== STEPS SCREEN ===== -->
+<div id="steps" class="screen has-nav">
+  <button class="back-btn" onclick="goHome()">← Orqaga</button>
+
+  <div class="steps-header">
+    <div class="sh-icon" id="steps-icon">🌱</div>
+    <h2 id="steps-title">Boshlang'ich</h2>
+    <p id="steps-desc">10 ichida qo'shish va ayirish</p>
+  </div>
+
+  <div class="steps-grid" id="steps-grid"></div>
+</div>
+
+<!-- ===== QUIZ SCREEN ===== -->
+<div id="quiz" class="screen">
+  <div class="quiz-topbar">
+    <button class="back-btn" style="padding:8px 14px;font-size:13px;" onclick="confirmQuit()">✕</button>
+    <div class="quiz-info">
+      <div class="quiz-label" id="quiz-label">Daraja 1 · Bosqich 1</div>
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="quiz-progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+    <div class="streak-badge" id="streak-badge">🔥 0</div>
+    <div class="timer-badge" id="timer-badge">⏱ —</div>
+  </div>
+
+  <div class="question-card">
+    <div class="q-num" id="q-num">Savol 1 / 20</div>
+    <div class="question-text" id="question-text">3 + 4 = ?</div>
+    <span class="question-emoji" id="q-emoji">🤔</span>
+  </div>
+
+  <div class="options-grid" id="options-grid"></div>
+</div>
+
+<!-- ===== RESULT SCREEN ===== -->
+<div id="result" class="screen has-nav">
+  <div class="result-card">
+    <span class="result-emoji" id="result-emoji">🎉</span>
+    <div class="result-title" id="result-title">Ajoyib!</div>
+    <div class="result-score" id="result-score">18/20</div>
+    <div class="result-sub" id="result-sub">O'tdingiz! Keyingi bosqich ochildi 🔓</div>
+
+    <div class="result-stats">
+      <div class="rs-chip">
+        <div class="rv" id="rs-correct">0</div>
+        <div class="rl">To'g'ri</div>
+      </div>
+      <div class="rs-chip">
+        <div class="rv" id="rs-wrong">0</div>
+        <div class="rl">Noto'g'ri</div>
+      </div>
+      <div class="rs-chip">
+        <div class="rv" id="rs-time">0s</div>
+        <div class="rl">Vaqt</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="result-mistakes" id="result-mistakes-wrap">
+    <h3>🔍 Xatolar tahlili</h3>
+    <div id="result-mistakes-list"></div>
+  </div>
+
+  <button class="btn btn-green" id="result-next-btn" onclick="nextAfterResult()">
+    ▶ Davom etish
+  </button>
+  <button class="btn btn-outline" onclick="retryStep()">🔄 Qaytadan urinish</button>
+  <button class="btn btn-outline" onclick="goHome()">🏠 Bosh sahifa</button>
+</div>
+
+<!-- ===== STATS SCREEN ===== -->
+<div id="stats" class="screen has-nav">
+  <button class="back-btn" onclick="showScreen('home')">← Orqaga</button>
+  <div class="stats-header">
+    <h2>📊 Statistika</h2>
+  </div>
+
+  <div class="stats-overview">
+    <div class="so-card">
+      <div class="sov" id="st-total-q">0</div>
+      <div class="sol">Jami savollar</div>
+    </div>
+    <div class="so-card">
+      <div class="sov" id="st-correct">0</div>
+      <div class="sol">To'g'ri javoblar</div>
+    </div>
+    <div class="so-card">
+      <div class="sov" id="st-accuracy">0%</div>
+      <div class="sol">Aniqlik</div>
+    </div>
+    <div class="so-card">
+      <div class="sov" id="st-steps">0</div>
+      <div class="sol">O'tilgan bosqichlar</div>
+    </div>
+    <div class="so-card">
+      <div class="sov" id="st-streak">0🔥</div>
+      <div class="sol">Eng uzun streak</div>
+    </div>
+    <div class="so-card">
+      <div class="sov" id="st-stars">0⭐</div>
+      <div class="sol">Jami yulduzlar</div>
+    </div>
+  </div>
+
+  <div class="medals-section">
+    <h3>🏅 Medallar</h3>
+    <div class="medals-grid" id="medals-grid"></div>
+  </div>
+
+  <button class="btn btn-outline" style="max-width:480px;align-self:center;" onclick="confirmReset()">
+    🗑 Ma'lumotlarni tozalash
+  </button>
+</div>
+
+<!-- ===== NAV BAR ===== -->
+<div class="nav-bar">
+  <div class="nav-item active" id="nav-home" onclick="navTo('home')">
+    <span class="ni">🏠</span>
+    <span class="nl">Bosh sahifa</span>
+  </div>
+  <div class="nav-item" id="nav-stats" onclick="navTo('stats')">
+    <span class="ni">📊</span>
+    <span class="nl">Statistika</span>
+  </div>
+</div>
+
+<!-- ===== CONFETTI ===== -->
+<div class="confetti-wrap" id="confetti-wrap"></div>
+
+<!-- ===== TOAST ===== -->
+<div class="toast" id="toast"></div>
+
+<!-- ===== QUIT MODAL ===== -->
+<div class="modal-overlay" id="quit-modal">
+  <div class="modal">
+    <h3>🚪 Chiqmoqchimisiz?</h3>
+    <p>Bosqich natijasi saqlanmaydi. Davom etasizmi?</p>
+    <div class="modal-btns">
+      <button class="btn btn-primary" onclick="closeModal('quit-modal')">▶ Davom etish</button>
+      <button class="btn btn-outline" onclick="forceQuit()">Chiqish</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== RESET MODAL ===== -->
+<div class="modal-overlay" id="reset-modal">
+  <div class="modal">
+    <h3>⚠️ Ishonchingiz komilmi?</h3>
+    <p>Barcha progress o'chiriladi. Bu amalni qaytarib bo'lmaydi!</p>
+    <div class="modal-btns">
+      <button class="btn btn-outline" onclick="closeModal('reset-modal')">Bekor qilish</button>
+      <button class="btn" style="background:#FF8A80;color:white;" onclick="doReset()">O'chirish</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+//  DATA & CONFIG
+// ============================================================
+const LEVELS = [
+  {
+    id: 1, icon: '🌱', name: "Boshlang'ich", color: '#6ECFA0',
+    desc: '10 ichida qo\'shish va ayirish',
+    steps: 100,
+    gen: (step) => genLevel1(step)
+  },
+  {
+    id: 2, icon: '🌿', name: "O'rta", color: '#7C9EFF',
+    desc: '100 ichida qo\'shish va ayirish',
+    steps: 100,
+    gen: (step) => genLevel2(step)
+  },
+  {
+    id: 3, icon: '⭐', name: "Karra jadval", color: '#FFD166',
+    desc: '2–9 sonlar ko\'paytmasi',
+    steps: 100,
+    gen: (step) => genLevel3(step)
+  },
+  {
+    id: 4, icon: '🚀', name: "Aralash 100", color: '#C4A8FF',
+    desc: '100 ichida 4 amal',
+    steps: 100,
+    gen: (step) => genLevel4(step)
+  },
+  {
+    id: 5, icon: '🏆', name: "Ilg\'or 1000", color: '#FF9F43',
+    desc: '1000 ichida 4 amal',
+    steps: 100,
+    gen: (step) => genLevel5(step)
+  }
+];
+
+const PASS_SCORE = 15; // out of 20
+const Q_PER_STEP = 20;
+
+// ============================================================
+//  QUESTION GENERATORS
+// ============================================================
+function rnd(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
+
+function makeQuestion(expr, answer) {
+  return { expr, answer };
+}
+
+function genLevel1(step) {
+  // step 1-33: addition only, 34-66: subtraction only, 67-100: mixed
+  const type = step <= 33 ? 'add' : step <= 66 ? 'sub' : (Math.random() < 0.5 ? 'add' : 'sub');
+  if (type === 'add') {
+    const a = rnd(0, 9), b = rnd(0, 10 - a);
+    return makeQuestion(`${a} + ${b} = ?`, a + b);
+  } else {
+    const b = rnd(0, 9), a = rnd(b, 10);
+    return makeQuestion(`${a} − ${b} = ?`, a - b);
+  }
+}
+
+function genLevel2(step) {
+  if (step <= 33) {
+    // multiples of 10
+    const a = rnd(1,9)*10, b = rnd(1,9)*10;
+    if (Math.random() < 0.5) return makeQuestion(`${a} + ${b} = ?`, a + b);
+    const bigger = Math.max(a,b), smaller = Math.min(a,b);
+    return makeQuestion(`${bigger} − ${smaller} = ?`, bigger - smaller);
+  } else if (step <= 66) {
+    const a = rnd(10, 90), b = rnd(1, 99 - a);
+    if (Math.random() < 0.5) return makeQuestion(`${a} + ${b} = ?`, a + b);
+    const bigger = Math.max(a,b), smaller = Math.min(a,b);
+    return makeQuestion(`${bigger} − ${smaller} = ?`, bigger - smaller);
+  } else {
+    const a = rnd(10, 99), b = rnd(1, 99);
+    if (Math.random() < 0.5) {
+      const s = a + b > 100 ? 100 - a : b;
+      return makeQuestion(`${a} + ${s} = ?`, a + s);
+    } else {
+      const bigger = Math.max(a,b), smaller = Math.min(a,b);
+      return makeQuestion(`${bigger} − ${smaller} = ?`, bigger - smaller);
+    }
+  }
+}
+
+function genLevel3(step) {
+  let tables;
+  if (step <= 20) tables = [2,3];
+  else if (step <= 40) tables = [4,5];
+  else if (step <= 60) tables = [6,7];
+  else if (step <= 80) tables = [8,9];
+  else tables = [2,3,4,5,6,7,8,9];
+
+  const t = tables[rnd(0, tables.length-1)];
+  const n = rnd(1, 10);
+  return makeQuestion(`${t} × ${n} = ?`, t * n);
+}
+
+function genLevel4(step) {
+  if (step <= 25) {
+    const a = rnd(1,99), b = rnd(1, 100-a);
+    return makeQuestion(`${a} + ${b} = ?`, a + b);
+  } else if (step <= 50) {
+    const b = rnd(1, 50), a = rnd(b, 99);
+    return makeQuestion(`${a} − ${b} = ?`, a - b);
+  } else if (step <= 75) {
+    const a = rnd(2,10), b = rnd(2,10);
+    if (a*b <= 100) return makeQuestion(`${a} × ${b} = ?`, a*b);
+    return makeQuestion(`${a} × ${Math.floor(100/a)} = ?`, a * Math.floor(100/a));
+  } else {
+    // division or mixed
+    const ops = ['+','-','×','÷'];
+    const op = ops[rnd(0,3)];
+    if (op === '+') { const a=rnd(1,49),b=rnd(1,50); return makeQuestion(`${a}+${b}=?`,a+b); }
+    if (op === '-') { const b=rnd(1,49),a=rnd(b,99); return makeQuestion(`${a}−${b}=?`,a-b); }
+    if (op === '×') { const a=rnd(2,9),b=rnd(2,9); return makeQuestion(`${a}×${b}=?`,a*b); }
+    // division
+    const a=rnd(2,9), b=rnd(2,9); return makeQuestion(`${a*b}÷${a}=?`,b);
+  }
+}
+
+function genLevel5(step) {
+  if (step <= 25) {
+    const a = rnd(10,900), b = rnd(10, 1000-a);
+    if (Math.random()<0.5) return makeQuestion(`${a} + ${b} = ?`, a+b);
+    const big=Math.max(a,b), sm=Math.min(a,b);
+    return makeQuestion(`${big} − ${sm} = ?`, big-sm);
+  } else if (step <= 50) {
+    const a = rnd(2,30), b = rnd(2,30);
+    return makeQuestion(`${a} × ${b} = ?`, a*b);
+  } else if (step <= 75) {
+    const a = rnd(2,30), b = rnd(2,30);
+    return makeQuestion(`${a*b} ÷ ${a} = ?`, b);
+  } else {
+    const ops=['+','-','×','÷'];
+    const op=ops[rnd(0,3)];
+    if(op==='+'){const a=rnd(50,500),b=rnd(50,500);return makeQuestion(`${a}+${b}=?`,a+b);}
+    if(op==='-'){const b=rnd(50,400),a=rnd(b+50,999);return makeQuestion(`${a}−${b}=?`,a-b);}
+    if(op==='×'){const a=rnd(2,25),b=rnd(2,25);return makeQuestion(`${a}×${b}=?`,a*b);}
+    const a=rnd(2,25),b=rnd(2,25);return makeQuestion(`${a*b}÷${a}=?`,b);
+  }
+}
+
+// Generate wrong options (unique, non-negative)
+function generateOptions(answer, isSmall) {
+  const opts = new Set([answer]);
+  const maxDelta = isSmall ? 5 : Math.max(5, Math.round(answer * 0.4));
+  let tries = 0;
+  while (opts.size < 4 && tries < 200) {
+    tries++;
+    let delta = rnd(1, maxDelta);
+    if (Math.random() < 0.5) delta = -delta;
+    const w = answer + delta;
+    if (w >= 0 && !opts.has(w)) opts.add(w);
+  }
+  // fallback if still not 4
+  let extra = 1;
+  while (opts.size < 4) { if (!opts.has(extra)) opts.add(extra); extra++; }
+  return shuffle([...opts]);
+}
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// ============================================================
+//  STORAGE
+// ============================================================
+const STORE_KEY = 'mathstar_v3';
+
+function loadData() {
+  try {
+    const d = localStorage.getItem(STORE_KEY);
+    if (d) return JSON.parse(d);
+  } catch(e) {}
+  return getDefaultData();
+}
+
+function getDefaultData() {
+  return {
+    // For each level: array of 100 booleans (completed or not)
+    progress: [
+      new Array(100).fill(false),
+      new Array(100).fill(false),
+      new Array(100).fill(false),
+      new Array(100).fill(false),
+      new Array(100).fill(false),
+    ],
+    // stars earned per step [level][step] = 0/1/2/3
+    stars: [
+      new Array(100).fill(0),
+      new Array(100).fill(0),
+      new Array(100).fill(0),
+      new Array(100).fill(0),
+      new Array(100).fill(0),
+    ],
+    totalQuestions: 0,
+    totalCorrect: 0,
+    currentStreak: 0,
+    maxStreak: 0,
+    totalStars: 0,
+    medals: [false, false, false, false, false],
+  };
+}
+
+function saveData() {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(appData)); } catch(e) {}
+}
+
+let appData = loadData();
+
+// ============================================================
+//  QUIZ STATE
+// ============================================================
+let currentLevel = 0;
+let currentStep = 0;
+let questions = [];
+let qIndex = 0;
+let correctCount = 0;
+let wrongCount = 0;
+let mistakes = [];
+let answered = false;
+let sessionStreak = 0;
+let stepStartTime = 0;
+let timerInterval = null;
+let elapsed = 0;
+
+// ============================================================
+//  SCREEN MANAGEMENT
+// ============================================================
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function navTo(id) {
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.getElementById('nav-' + id)?.classList.add('active');
+  if (id === 'home') renderHome();
+  else if (id === 'stats') renderStats();
+  showScreen(id);
+}
+
+// ============================================================
+//  HOME SCREEN
+// ============================================================
+function renderHome() {
+  const totalSteps = appData.progress.reduce((sum, lvl) => sum + lvl.filter(Boolean).length, 0);
+  document.getElementById('home-total-steps').textContent = totalSteps;
+  document.getElementById('home-streak').textContent = appData.currentStreak + '🔥';
+  document.getElementById('home-stars').textContent = appData.totalStars + '⭐';
+
+  const grid = document.getElementById('levels-grid');
+  grid.innerHTML = '';
+
+  LEVELS.forEach((lvl, i) => {
+    const done = appData.progress[i].filter(Boolean).length;
+    const locked = i > 0 && appData.progress[i-1].filter(Boolean).length < 10;
+
+    const card = document.createElement('div');
+    card.className = 'level-card' + (locked ? ' locked' : '');
+    card.style.setProperty('--lvl-color', lvl.color);
+    if (!locked) card.onclick = () => openLevel(i);
+
+    card.innerHTML = `
+      <div class="level-icon">${lvl.icon}</div>
+      <div class="level-info">
+        <div class="level-name">${lvl.name}</div>
+        <div class="level-desc">${lvl.desc}</div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" style="width:${done}%"></div>
+        </div>
+      </div>
+      <div class="level-progress">
+        <div class="steps" style="color:${lvl.color}">${done}</div>
+        <div class="stlbl">/ 100</div>
+        ${locked ? '<div style="font-size:18px;margin-top:4px">🔒</div>' : ''}
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function goHome() {
+  renderHome();
+  navTo('home');
+}
+
+// ============================================================
+//  STEPS SCREEN
+// ============================================================
+function openLevel(levelIdx) {
+  currentLevel = levelIdx;
+  const lvl = LEVELS[levelIdx];
+
+  document.getElementById('steps-icon').textContent = lvl.icon;
+  document.getElementById('steps-title').textContent = lvl.name;
+  document.getElementById('steps-desc').textContent = lvl.desc;
+
+  renderStepsGrid(levelIdx);
+  showScreen('steps');
+}
+
+function renderStepsGrid(levelIdx) {
+  const grid = document.getElementById('steps-grid');
+  grid.innerHTML = '';
+  const lvl = LEVELS[levelIdx];
+  const done = appData.progress[levelIdx];
+  const stars = appData.stars[levelIdx];
+
+  for (let i = 0; i < 100; i++) {
+    const btn = document.createElement('button');
+    const isDone = done[i];
+    const isCurrent = !isDone && (i === 0 || done[i-1]);
+
+    if (isDone) {
+      btn.className = 'step-btn done';
+      btn.style.setProperty('--lvl-color', lvl.color);
+      const s = stars[i];
+      btn.innerHTML = `<span class="snum">${i+1}</span><span class="sstar">${'⭐'.repeat(s)}</span>`;
+    } else if (isCurrent) {
+      btn.className = 'step-btn current';
+      btn.innerHTML = `<span class="snum">${i+1}</span>`;
+    } else {
+      btn.className = 'step-btn locked';
+      btn.innerHTML = `<span class="snum">🔒</span>`;
+      btn.disabled = true;
+    }
+
+    if (!btn.disabled) {
+      btn.onclick = () => startStep(levelIdx, i);
+    }
+    grid.appendChild(btn);
+  }
+}
+
+// ============================================================
+//  QUIZ LOGIC
+// ============================================================
+function startStep(levelIdx, stepIdx) {
+  currentLevel = levelIdx;
+  currentStep = stepIdx;
+  questions = [];
+  qIndex = 0;
+  correctCount = 0;
+  wrongCount = 0;
+  mistakes = [];
+  answered = false;
+  sessionStreak = 0;
+  elapsed = 0;
+
+  // Generate 20 unique-ish questions
+  for (let i = 0; i < Q_PER_STEP; i++) {
+    questions.push(LEVELS[levelIdx].gen(stepIdx + 1));
+  }
+
+  stepStartTime = Date.now();
+  if (timerInterval) clearInterval(timerInterval);
+  timerInterval = setInterval(() => {
+    elapsed = Math.floor((Date.now() - stepStartTime) / 1000);
+    const tb = document.getElementById('timer-badge');
+    const mins = Math.floor(elapsed / 60);
+    const secs = elapsed % 60;
+    tb.textContent = `⏱ ${mins > 0 ? mins+'m ' : ''}${secs}s`;
+  }, 1000);
+
+  showScreen('quiz');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = questions[qIndex];
+  document.getElementById('quiz-label').textContent =
+    `Daraja ${currentLevel+1} · Bosqich ${currentStep+1}`;
+  document.getElementById('q-num').textContent = `Savol ${qIndex+1} / ${Q_PER_STEP}`;
+  document.getElementById('question-text').textContent = q.expr;
+  document.getElementById('quiz-progress-fill').style.width = `${(qIndex/Q_PER_STEP)*100}%`;
+  document.getElementById('streak-badge').textContent = `🔥 ${sessionStreak}`;
+
+  // Random emoji
+  const emojis = ['🤔','💭','🧠','✏️','📝','🎯','💡','🌟'];
+  document.getElementById('q-emoji').textContent = emojis[rnd(0, emojis.length-1)];
+
+  // Options
+  const isSmall = q.answer < 20;
+  const opts = generateOptions(q.answer, isSmall);
+  const grid = document.getElementById('options-grid');
+  grid.innerHTML = '';
+  answered = false;
+
+  opts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt;
+    btn.onclick = () => selectAnswer(btn, opt, q.answer);
+    grid.appendChild(btn);
+  });
+}
+
+function selectAnswer(btn, chosen, correct) {
+  if (answered) return;
+  answered = true;
+
+  // Disable all buttons
+  document.querySelectorAll('.option-btn').forEach(b => b.disabled = true);
+
+  appData.totalQuestions++;
+
+  if (chosen === correct) {
+    btn.classList.add('correct');
+    correctCount++;
+    appData.totalCorrect++;
+    sessionStreak++;
+    appData.currentStreak++;
+    if (appData.currentStreak > appData.maxStreak) appData.maxStreak = appData.currentStreak;
+    playSound('correct');
+  } else {
+    btn.classList.add('wrong');
+    wrongCount++;
+    sessionStreak = 0;
+    appData.currentStreak = 0;
+    mistakes.push({ expr: questions[qIndex].expr, wrong: chosen, correct });
+    // Reveal correct answer
+    document.querySelectorAll('.option-btn').forEach(b => {
+      if (parseInt(b.textContent) === correct || b.textContent == correct) {
+        b.classList.add('reveal');
+      }
+    });
+    playSound('wrong');
+  }
+
+  saveData();
+
+  setTimeout(() => {
+    qIndex++;
+    if (qIndex < Q_PER_STEP) {
+      renderQuestion();
+    } else {
+      finishStep();
+    }
+  }, 900);
+}
+
+function finishStep() {
+  clearInterval(timerInterval);
+  const passed = correctCount >= PASS_SCORE;
+
+  // Calculate stars
+  let stars = 0;
+  if (correctCount >= 20) stars = 3;
+  else if (correctCount >= 18) stars = 2;
+  else if (correctCount >= PASS_SCORE) stars = 1;
+
+  if (passed) {
+    // Update progress
+    if (!appData.progress[currentLevel][currentStep]) {
+      appData.progress[currentLevel][currentStep] = true;
+      appData.totalStars += stars;
+      if (appData.stars[currentLevel][currentStep] < stars) {
+        appData.stars[currentLevel][currentStep] = stars;
+      }
+    } else if (stars > appData.stars[currentLevel][currentStep]) {
+      const diff = stars - appData.stars[currentLevel][currentStep];
+      appData.totalStars += diff;
+      appData.stars[currentLevel][currentStep] = stars;
+    }
+
+    // Medal check
+    const allDone = appData.progress[currentLevel].every(Boolean);
+    if (allDone && !appData.medals[currentLevel]) {
+      appData.medals[currentLevel] = true;
+    }
+  }
+
+  saveData();
+
+  // Result screen
+  const emoji = correctCount >= 19 ? '🏆' : correctCount >= 17 ? '🎉' : correctCount >= PASS_SCORE ? '😊' : '😅';
+  const title = correctCount >= 19 ? 'Mukammal!' : correctCount >= 17 ? 'Ajoyib!' : correctCount >= PASS_SCORE ? 'Barakalla!' : 'Zo\'r urinish!';
+
+  document.getElementById('result-emoji').textContent = emoji;
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-score').textContent = `${correctCount}/20`;
+  document.getElementById('result-score').className = 'result-score ' + (passed ? 'pass' : 'fail');
+
+  let sub = passed
+    ? (currentStep < 99 ? '✅ O\'tdingiz! Keyingi bosqich ochildi 🔓' : '🏆 Daraja tugadi!')
+    : `❌ O'tish uchun ${PASS_SCORE} ta to'g'ri javob kerak`;
+  document.getElementById('result-sub').textContent = sub;
+
+  document.getElementById('rs-correct').textContent = correctCount;
+  document.getElementById('rs-wrong').textContent = wrongCount;
+  const mins = Math.floor(elapsed/60), secs = elapsed%60;
+  document.getElementById('rs-time').textContent = mins>0 ? `${mins}m${secs}s` : `${secs}s`;
+
+  const nextBtn = document.getElementById('result-next-btn');
+  if (passed && currentStep < 99) {
+    nextBtn.style.display = 'flex';
+    nextBtn.textContent = '▶ Keyingi bosqich';
+  } else if (passed && currentStep === 99) {
+    nextBtn.style.display = 'flex';
+    nextBtn.textContent = '🏠 Bosh sahifa';
+  } else {
+    nextBtn.style.display = 'none';
+  }
+
+  // Mistakes
+  const mistakesList = document.getElementById('result-mistakes-list');
+  const mistakesWrap = document.getElementById('result-mistakes-wrap');
+  if (mistakes.length === 0) {
+    mistakesWrap.style.display = 'none';
+  } else {
+    mistakesWrap.style.display = 'block';
+    mistakesList.innerHTML = mistakes.map(m =>
+      `<div class="mistake-item">
+        <span class="mq">${m.expr}</span>
+        <span class="mw">✗ ${m.wrong}</span>
+        <span class="mc">✓ ${m.correct}</span>
+      </div>`
+    ).join('');
+  }
+
+  showScreen('result');
+
+  if (passed) {
+    launchConfetti();
+  }
+}
+
+function nextAfterResult() {
+  if (currentStep < 99) {
+    startStep(currentLevel, currentStep + 1);
+  } else {
+    goHome();
+  }
+}
+
+function retryStep() {
+  startStep(currentLevel, currentStep);
+}
+
+// ============================================================
+//  STATS SCREEN
+// ============================================================
+function renderStats() {
+  const d = appData;
+  document.getElementById('st-total-q').textContent = d.totalQuestions;
+  document.getElementById('st-correct').textContent = d.totalCorrect;
+  const acc = d.totalQuestions > 0 ? Math.round(d.totalCorrect/d.totalQuestions*100) : 0;
+  document.getElementById('st-accuracy').textContent = acc + '%';
+  const stepsD = d.progress.reduce((s,l) => s + l.filter(Boolean).length, 0);
+  document.getElementById('st-steps').textContent = stepsD;
+  document.getElementById('st-streak').textContent = d.maxStreak + '🔥';
+  document.getElementById('st-stars').textContent = d.totalStars + '⭐';
+
+  const MEDALS = [
+    { icon: '🥗', label: "Boshlang'ich" },
+    { icon: '🎓', label: "O'rta" },
+    { icon: '🌟', label: 'Karra' },
+    { icon: '🚀', label: 'Aralash' },
+    { icon: '🏆', label: "Ilg'or" },
+  ];
+  const grid = document.getElementById('medals-grid');
+  grid.innerHTML = MEDALS.map((m, i) => `
+    <div class="medal-item ${d.medals[i] ? '' : 'locked-medal'}">
+      <div class="mi">${m.icon}</div>
+      <div class="ml">${m.label}</div>
+    </div>
+  `).join('');
+}
+
+// ============================================================
+//  MODAL / QUIT
+// ============================================================
+function confirmQuit() {
+  document.getElementById('quit-modal').classList.add('show');
+}
+function forceQuit() {
+  clearInterval(timerInterval);
+  closeModal('quit-modal');
+  goHome();
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+function confirmReset() {
+  document.getElementById('reset-modal').classList.add('show');
+}
+function doReset() {
+  appData = getDefaultData();
+  saveData();
+  closeModal('reset-modal');
+  renderStats();
+  showToast('✅ Ma\'lumotlar tozalandi');
+}
+
+// ============================================================
+//  CONFETTI
+// ============================================================
+function launchConfetti() {
+  const wrap = document.getElementById('confetti-wrap');
+  wrap.innerHTML = '';
+  const colors = ['#7C9EFF','#6ECFA0','#FFD166','#C4A8FF','#FFB3D1','#FF9F43'];
+  for (let i = 0; i < 60; i++) {
+    const p = document.createElement('div');
+    p.className = 'confetti-piece';
+    p.style.left = rnd(0,100) + '%';
+    p.style.background = colors[rnd(0, colors.length-1)];
+    p.style.width = rnd(6,12) + 'px';
+    p.style.height = rnd(6,12) + 'px';
+    p.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    p.style.animationDuration = rnd(15,35)/10 + 's';
+    p.style.animationDelay = rnd(0,20)/10 + 's';
+    wrap.appendChild(p);
+  }
+  setTimeout(() => wrap.innerHTML = '', 4000);
+}
+
+// ============================================================
+//  TOAST
+// ============================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ============================================================
+//  SOUND (Web Audio API)
+// ============================================================
+let audioCtx = null;
+function getAudio() {
+  if (!audioCtx) {
+    try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); } catch(e) {}
+  }
+  return audioCtx;
+}
+function playSound(type) {
+  const ctx = getAudio();
+  if (!ctx) return;
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+  osc.connect(gain); gain.connect(ctx.destination);
+  if (type === 'correct') {
+    osc.frequency.setValueAtTime(523, ctx.currentTime);
+    osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1);
+    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.3);
+  } else {
+    osc.frequency.setValueAtTime(220, ctx.currentTime);
+    osc.frequency.setValueAtTime(180, ctx.currentTime + 0.1);
+    gain.gain.setValueAtTime(0.1, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+    osc.start(ctx.currentTime); osc.stop(ctx.currentTime + 0.3);
+  }
+}
+
+// ============================================================
+//  PWA SERVICE WORKER
+// ============================================================
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
+// ============================================================
+//  INIT
+// ============================================================
+renderHome();
+</script>
+</body>
+</html>
