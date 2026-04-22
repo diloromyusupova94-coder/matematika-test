@@ -221,6 +221,33 @@
     .modal p{color:var(--text-light);font-size:13px;font-weight:600;margin-bottom:16px;}
     .modal-btns{display:flex;flex-direction:column;gap:9px;}
 
+    /* ABOUT */
+    #about{gap:20px;align-items:center;padding-top:28px;}
+    .about-hero{text-align:center;padding:28px 20px;background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow-lg);width:100%;max-width:480px;position:relative;overflow:hidden;}
+    .about-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;background:radial-gradient(circle,rgba(124,158,255,0.15) 0%,transparent 70%);border-radius:50%;}
+    .about-app-icon{font-size:64px;display:block;margin-bottom:10px;}
+    .about-app-name{font-family:'Baloo 2',cursive;font-size:28px;font-weight:800;color:var(--primary-dark);}
+    .about-version{font-size:12px;color:var(--text-light);font-weight:600;margin-top:3px;}
+    .about-tagline{font-size:14px;color:var(--text-light);font-weight:600;margin-top:8px;line-height:1.5;}
+    .about-card{background:var(--card);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);width:100%;max-width:480px;}
+    .about-card h3{font-size:15px;font-weight:800;color:var(--text);margin-bottom:14px;display:flex;align-items:center;gap:7px;}
+    .about-row{display:flex;align-items:center;gap:13px;padding:10px 0;border-bottom:1px solid #EEF0F8;}
+    .about-row:last-child{border-bottom:none;padding-bottom:0;}
+    .about-row-icon{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+    .about-row-info{flex:1;}
+    .about-row-label{font-size:12px;color:var(--text-light);font-weight:600;}
+    .about-row-value{font-size:14px;font-weight:800;color:var(--text);margin-top:2px;}
+    .about-row-value a{color:var(--primary-dark);text-decoration:none;}
+    .about-row-value a:hover{text-decoration:underline;}
+    .about-levels-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+    .about-level-item{background:var(--bg);border-radius:var(--radius-sm);padding:10px 12px;display:flex;align-items:center;gap:8px;}
+    .about-level-item .ali{font-size:18px;}
+    .about-level-item .alt{font-size:12px;font-weight:700;color:var(--text);}
+    .about-level-item .ald{font-size:10px;color:var(--text-light);font-weight:600;margin-top:1px;}
+    .about-feature-list{display:flex;flex-direction:column;gap:8px;}
+    .about-feature{display:flex;align-items:flex-start;gap:10px;font-size:13px;font-weight:600;color:var(--text);line-height:1.4;}
+    .about-feature .afi{font-size:16px;flex-shrink:0;margin-top:1px;}
+
     @media(max-width:360px){
       .steps-grid{grid-template-columns:repeat(4,1fr);}
       .question-text{font-size:26px;}
@@ -361,11 +388,81 @@
   <button class="btn btn-outline" style="max-width:480px;align-self:center;" onclick="confirmReset()">🗑 Ma'lumotlarni tozalash</button>
 </div>
 
+<!-- ABOUT -->
+<div id="about" class="screen has-nav">
+  <div class="about-hero">
+    <span class="about-app-icon">🧮</span>
+    <div class="about-app-name">MathStar</div>
+    <div class="about-version">Versiya 1.0 · 2024</div>
+    <div class="about-tagline">Bolalar uchun qiziqarli matematika o'yini.<br>Offline ishlaydi, telefonga o'rnatiladi.</div>
+  </div>
+
+  <div class="about-card" style="max-width:480px;">
+    <h3>👩‍💻 Muallif haqida</h3>
+    <div class="about-row">
+      <div class="about-row-icon" style="background:#FFE8F0;">👩‍🏫</div>
+      <div class="about-row-info">
+        <div class="about-row-label">Muallif</div>
+        <div class="about-row-value">Dilorom Yusupova</div>
+      </div>
+    </div>
+    <div class="about-row">
+      <div class="about-row-icon" style="background:#E8F0FF;">📧</div>
+      <div class="about-row-info">
+        <div class="about-row-label">Murojaat uchun</div>
+        <div class="about-row-value"><a href="mailto:diloromyusupova94@gmail.com">diloromyusupova94@gmail.com</a></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-card" style="max-width:480px;">
+    <h3>📚 Darajalar</h3>
+    <div class="about-levels-grid">
+      <div class="about-level-item"><span class="ali">🌱</span><div><div class="alt">Daraja 1</div><div class="ald">10 ichida +/−</div></div></div>
+      <div class="about-level-item"><span class="ali">🌿</span><div><div class="alt">Daraja 2</div><div class="ald">100 ichida +/−</div></div></div>
+      <div class="about-level-item"><span class="ali">⭐</span><div><div class="alt">Daraja 3</div><div class="ald">Karra jadval</div></div></div>
+      <div class="about-level-item"><span class="ali">🚀</span><div><div class="alt">Daraja 4</div><div class="ald">100 ichida 4 amal</div></div></div>
+      <div class="about-level-item"><span class="ali">🏆</span><div><div class="alt">Daraja 5</div><div class="ald">1000 ichida 4 amal</div></div></div>
+      <div class="about-level-item"><span class="ali">🔥</span><div><div class="alt">Daraja 6</div><div class="ald">10 000 + murakkab</div></div></div>
+      <div class="about-level-item"><span class="ali">💎</span><div><div class="alt">Daraja 7</div><div class="ald">100 000 · 4–5 amal</div></div></div>
+    </div>
+  </div>
+
+  <div class="about-card" style="max-width:480px;">
+    <h3>✨ Xususiyatlar</h3>
+    <div class="about-feature-list">
+      <div class="about-feature"><span class="afi">👥</span>Bir telefondan bir nechta bola o'ynashi mumkin — har birining o'z profili</div>
+      <div class="about-feature"><span class="afi">📶</span>Internetisiz ham ishlaydi (PWA — telefonga o'rnatiladi)</div>
+      <div class="about-feature"><span class="afi">🎯</span>7 daraja · 700 bosqich · har birida 20 ta savol</div>
+      <div class="about-feature"><span class="afi">🔀</span>Savollar har safar random — cheksiz amaliyot</div>
+      <div class="about-feature"><span class="afi">🏆</span>Reyting jadvali — bolalar o'rtasida musobaqa</div>
+      <div class="about-feature"><span class="afi">🔍</span>Xatolar tahlili — qayerda yanglishganini ko'rsatadi</div>
+      <div class="about-feature"><span class="afi">🔥</span>Streak va yulduz tizimi — o'qishga rag'bat</div>
+      <div class="about-feature"><span class="afi">🔊</span>Ovozli signal — to'g'ri/noto'g'ri javob uchun</div>
+    </div>
+  </div>
+
+  <div class="about-card" style="max-width:480px;">
+    <h3>📋 Qoidalar</h3>
+    <div class="about-feature-list">
+      <div class="about-feature"><span class="afi">✅</span>Har bosqichda 20 ta savol, 4 ta variant beriladi</div>
+      <div class="about-feature"><span class="afi">🎖</span>Keyingi bosqichga o'tish uchun 15/20 to'g'ri javob kerak</div>
+      <div class="about-feature"><span class="afi">⭐</span>20/20 — 3 yulduz · 18–19 — 2 yulduz · 15–17 — 1 yulduz</div>
+      <div class="about-feature"><span class="afi">🔄</span>O'tilgan bosqichni qaytadan yechib yulduzni oshirish mumkin</div>
+    </div>
+  </div>
+
+  <div style="text-align:center;font-size:12px;color:var(--text-light);font-weight:600;padding-bottom:8px;">
+    © 2024 Dilorom Yusupova · Barcha huquqlar himoyalangan
+  </div>
+</div>
+
 <!-- NAV BAR -->
 <div class="nav-bar">
   <div class="nav-item active" id="nav-home" onclick="navTo('home')"><span class="ni">🏠</span><span class="nl">Asosiy</span></div>
   <div class="nav-item" id="nav-leaderboard" onclick="navTo('leaderboard')"><span class="ni">🏆</span><span class="nl">Reyting</span></div>
   <div class="nav-item" id="nav-stats" onclick="navTo('stats')"><span class="ni">📊</span><span class="nl">Statistika</span></div>
+  <div class="nav-item" id="nav-about" onclick="navTo('about')"><span class="ni">ℹ️</span><span class="nl">Dastur</span></div>
 </div>
 
 <div class="confetti-wrap" id="confetti-wrap"></div>
@@ -684,6 +781,7 @@ function navTo(id){
   else if(id==='stats')renderStats();
   else if(id==='leaderboard')renderLeaderboard(currentLbFilter);
   showScreen(id);
+  // about screen needs no render
 }
 
 // ================================================================
